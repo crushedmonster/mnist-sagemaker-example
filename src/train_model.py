@@ -25,12 +25,6 @@ def main(batch_size, epochs, learning_rate, is_local, model_checkpoint):
     clf.train(train_ds, val_ds)
     logger.info("Training completed.")
 
-    # # Save model to SageMaker's model dir (uploaded to S3 automatically)
-    # # model_dir = os.environ.get("SM_MODEL_DIR", "/opt/ml/model")
-    # save_path = os.path.join(model_dir, "saved_model")
-    # clf.save_model(save_path)
-    # logger.info(f"Model saved at {save_path}")
-
     # Save model (different paths for local vs SageMaker) 
     if is_local: 
         os.makedirs(model_checkpoint, exist_ok=True) 
@@ -81,7 +75,6 @@ if __name__ == "__main__":
         batch_size=args.batch_size, 
         epochs=args.epochs, 
         learning_rate=args.learning_rate,
-        # model_dir=args.model_dir
         is_local=args.local,
         model_checkpoint=args.model_checkpoint
     )

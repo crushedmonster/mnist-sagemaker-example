@@ -6,7 +6,7 @@
 1. Clone this repository and navigate to the project directory.
 2. Copy the example environment file and configure it:
 ```bash
-cp example.env .env
+cp .example.env .env
 ```
 3. Populate .env with your specific values (eg. SageMaker role ARN, S3 bucket)
 
