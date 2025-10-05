@@ -19,7 +19,8 @@ uv sync
 
 Run on the terminal of Sagemaker Studio Code editor:
 ```bash
-uv run src/train_model.py --model_dir="model_checkpoint"
+# Test on studio code editor locally
+uv run src/train_model.py --local
 ```
 
 Log training to Sagemaker:

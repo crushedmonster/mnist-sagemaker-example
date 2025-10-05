@@ -1,4 +1,3 @@
-import os
 import sagemaker
 from sagemaker.tensorflow import TensorFlow
 
@@ -18,7 +17,7 @@ def run_training():
         framework_version=SETTINGS.FRAMEWORK_VERSION,
         py_version=SETTINGS.PYTHON_VERSION,
         hyperparameters=SETTINGS.HYPERPARAMETERS,
-        output_path=SETTINGS.S3_BUCKET,
+        output_path=f"{SETTINGS.S3_BUCKET}",
         base_job_name="mnist-training-job"
     )
 

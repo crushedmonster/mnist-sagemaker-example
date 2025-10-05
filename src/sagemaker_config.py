@@ -13,13 +13,13 @@ class SageMakerConfig:
 
     # Training parameters
     INSTANCE_TYPE = "ml.m5.xlarge"
-    INSTANCE_COUNT = 1
+    INSTANCE_COUNT = 10
     FRAMEWORK_VERSION = "2.13"
     PYTHON_VERSION = "py310"
 
     # Hyperparameters
     HYPERPARAMETERS = {
-        "epochs": 10,
+        "epochs": 1,
         "batch-size": 32,
         "learning-rate": 0.001,
     }

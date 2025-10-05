@@ -105,6 +105,9 @@ class MNISTModel:
         loss, acc = self.model.evaluate(test_dataset)
         return loss, acc
 
-    def save(self, save_path):
+    def save_model(self, save_path, **kwargs):
+        """
+        Save underlying model with any keras.Model.save args
+        """
         # save model
-        self.model.save(save_path)
+        self.model.save(save_path, **kwargs)
