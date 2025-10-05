@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def main(batch_size, epochs, learning_rate, is_local, model_checkpoint):
+def main(batch_size, epochs, learning_rate, is_local, model_checkpoint, model_version):
 
     clf = model.MNISTModel(
         batch_size=batch_size,
@@ -26,15 +26,14 @@ def main(batch_size, epochs, learning_rate, is_local, model_checkpoint):
     logger.info("Training completed.")
 
     # Save model (different paths for local vs SageMaker) 
-    if is_local: 
+    if is_local:
         os.makedirs(model_checkpoint, exist_ok=True) 
-        save_path = os.path.join(model_checkpoint, "saved_model") 
-        logger.info(f"Saving model locally to: {save_path}") 
-    else: 
-        sm_model_dir = os.environ.get("SM_MODEL_DIR", "/opt/ml/model") 
-        save_path = os.path.join(sm_model_dir, "saved_model")
-        logger.info(f"Saving model to SageMaker model dir: {save_path}") 
+        base_dir = model_checkpoint
+    else:
+        base_dir = os.environ.get("SM_MODEL_DIR", "/opt/ml/model")
     
+    save_path = os.path.join(base_dir, str(model_version))
+    logger.info(f"Saving model to: {save_path}")
     clf.save_model(save_path)
 
     # Evaluate
@@ -69,6 +68,9 @@ if __name__ == "__main__":
         help="Directory to save model when running locally"
     )
     
+    # Model version (numeric for TF Serving)
+    parser.add_argument("--model-version", type=int, default=1)
+
     args = parser.parse_args()
 
     main( 
@@ -76,5 +78,6 @@ if __name__ == "__main__":
         epochs=args.epochs, 
         learning_rate=args.learning_rate,
         is_local=args.local,
-        model_checkpoint=args.model_checkpoint
+        model_checkpoint=args.model_checkpoint,
+        model_version=args.model_version
     )

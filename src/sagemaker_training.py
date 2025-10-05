@@ -12,7 +12,7 @@ def run_training():
         entry_point=SETTINGS.ENTRY_POINT,
         source_dir=SETTINGS.SOURCE_DIR,
         role=role,
-        instance_type=SETTINGS.INSTANCE_TYPE,
+        instance_type=SETTINGS.TRAINING_INSTANCE_TYPE,
         instance_count=SETTINGS.INSTANCE_COUNT,
         framework_version=SETTINGS.FRAMEWORK_VERSION,
         py_version=SETTINGS.PYTHON_VERSION,
